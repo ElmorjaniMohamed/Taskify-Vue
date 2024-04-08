@@ -2,9 +2,9 @@
     <div class="card mt-2" v-if="tasks.length && show">
         <ul class="list-group list-group-flush">
             <Task v-for="task in tasks" :task="task" :key="task.id" 
-            @updated="$event =>$emit('updated', $event)"
-            @completed="$event =>$emit('completed', $event)"
-            @deleted="$event =>$emit('deleted', $event)"
+            @updated="handleUpdatedTask"
+            @completed="handleCompletedTask"
+            @deleted="handleDeleteTask"
              />
         </ul>
     </div>
@@ -12,6 +12,12 @@
 
 <script setup>
 import Task from './Task.vue';
+
+import { useTaskStore } from "../../stores/task";
+
+
+const store = useTaskStore()
+const { handleUpdatedTask, handleCompletedTask, handleDeleteTask } = store
 
 defineProps({
     tasks: Array,
