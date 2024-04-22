@@ -1,0 +1,13 @@
+<template>
+    <div id="notfound">
+		<div class="notfound">
+			<div>
+				<div class="notfound-404">
+					<h1>!</h1>
+				</div>
+				<h2>Error<br>404</h2>
+			</div>
+			<p>The page <code> {{ $route.params.notFound }} </code> you are looking for might have been removed had its name changed or is temporarily unavailable. <router-link :to="{name: 'tasks'}">Back to your tasks</router-link></p>
+		</div>
+	</div>
+</template>
