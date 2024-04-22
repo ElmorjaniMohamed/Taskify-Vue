@@ -1,12 +1,18 @@
 import TaskPage from '../pages/TasksPage.vue';
 import LoginPage from '../pages/LoginPage.vue';
 import RegisterPage from '../pages/RegisterPage.vue';
+import SummaryPage from '../pages/SummaryPage.vue';
+import NoutFoundErrorPage from '@/pages/errors/NoutFoundErrorPage.vue';
+import HomePage from '@/pages/HomePage.vue';
 
 
 const  routes = [
-    { path: '/tasks', component: TaskPage, name: 'tasks' },
-    { path: '/login', component: LoginPage, name: 'login'  },
+    { path: '/', component: HomePage, name: 'home' },
+    { path: '/tasks', component: TaskPage, name: 'tasks', meta: { auth: true }},
+    { path: '/login', component: LoginPage, name: 'login' },
     { path: '/register', component: RegisterPage, name: 'register' },
+    { path: '/summary', component: SummaryPage, name: 'summary', meta: { auth: true }},
+    { path: '/:notFound(.*)*', component: NoutFoundErrorPage, name: 'error.404' },
 ];
 
 export default routes;
