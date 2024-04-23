@@ -18,18 +18,20 @@
                                     {{ errors }}
                                     <div class="col-12">
                                         <div class="form-floating mb-3">
-                                            <input type="email" class="form-control" name="email" id="email"
+                                            <input type="email" class="form-control" :class="{'is-invalid': errors.email && errors.email[0] }" name="email" id="email"
                                                 v-model="form.email" placeholder="name@example.com" required
                                                 autocomplete="username">
                                             <label for="email" class="form-label">Email</label>
+                                            <div class="invalid-feedback" v-if="errors.email && errors.email[0]">Error</div>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating mb-3">
-                                            <input type="password" class="form-control" name="password" id="password"
+                                            <input type="password" class="form-control" :class="{'is-invalid': errors.password && errors.password[0] }" name="password" id="password"
                                                 v-model="form.password" value="" placeholder="Password" required
                                                 autocomplete="current-password">
                                             <label for="password" class="form-label">Password</label>
+                                            <div class="invalid-feedback" v-if="errors.password && errors.password[0]">Error</div>
                                         </div>
                                     </div>
                                     <div class="col-12">
