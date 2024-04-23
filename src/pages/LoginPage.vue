@@ -7,25 +7,28 @@
                         <div class="card-body p-3 p-md-4 p-xl-5">
                             <div class="text-center mb-3">
                                 <a href="#!">
-                                    <img src="./assets/img/logo.svg" alt="BootstrapBrain Logo" width="175"
-                                        height="57">
+                                    <img src="./assets/img/logo.svg" alt="BootstrapBrain Logo" width="175" height="57">
                                 </a>
                             </div>
                             <h2 class="fs-6 fw-normal text-center text-secondary mb-4">Sign in to your account</h2>
-                            
+
                             <form @submit.prevent="handleSubmit">
+
                                 <div class="row gy-2 overflow-hidden">
+                                    {{ errors }}
                                     <div class="col-12">
                                         <div class="form-floating mb-3">
-                                            <input type="email" class="form-control" name="email" id="email" v-model="state.email"
-                                                placeholder="name@example.com" required>
+                                            <input type="email" class="form-control" name="email" id="email"
+                                                v-model="form.email" placeholder="name@example.com" required
+                                                autocomplete="username">
                                             <label for="email" class="form-label">Email</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating mb-3">
-                                            <input type="password" class="form-control" name="password" id="password" v-model="state.password"
-                                                value="" placeholder="Password" required>
+                                            <input type="password" class="form-control" name="password" id="password"
+                                                v-model="form.password" value="" placeholder="Password" required
+                                                autocomplete="current-password">
                                             <label for="password" class="form-label">Password</label>
                                         </div>
                                     </div>
@@ -49,27 +52,27 @@
 </template>
 
 <script setup>
-
 import { useRouter } from "vue-router";
 import { reactive } from "vue";
+import { storeToRefs } from "pinia";
 
 import { useAuthStore } from "../stores/auth";
 
 const router = useRouter();
-const Store = useAuthStore();
+const store = useAuthStore();
+const { isLoggedIn, errors } = storeToRefs(store)
 
-const state = reactive({
-    email: "",
-    password: "",
+const { handleLogin } = store
+
+const form = reactive({
+    email: '',
+    password: '',
 });
 
 const handleSubmit = async () => {
-    try {
-        await Store.handleLogin(state);
+    await handleLogin(form);
+    if (isLoggedIn.value) {
         router.push({ name: "tasks" });
-    } catch (error) {
-        console.error(error);
     }
 };
-
 </script>
